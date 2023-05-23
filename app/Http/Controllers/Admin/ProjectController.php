@@ -7,6 +7,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -41,6 +42,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
+        $data['slug'] = Str::slug($data['title'],'-');
 
         $newProject = new Project();
 
@@ -48,7 +50,7 @@ class ProjectController extends Controller
 
         $newProject->save();
 
-        return redirect()->route('admin.projects.show',['project'=>$newProject->id]);
+        return redirect()->route('admin.projects.show',['project'=>$newProject->slug])->with('status', 'Progetto creato con successo!');
 
     }
 
@@ -85,9 +87,10 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $request = $request->validated();
+        $request['slug'] = Str::slug($request['title'],'-');
         $project->update();
 
-        return redirect()->route('admin.projects.show',['project'=>$project->id]);
+        return redirect()->route('admin.projects.show',['project'=>$project->slug])->with('status', 'Progetto modificato con successo!');
     }
 
     /**

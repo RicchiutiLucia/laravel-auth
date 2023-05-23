@@ -23,12 +23,12 @@
                                 <a href="{{route('admin.projects.show',$project->slug)}}" class="btn btn-primary ">Info</a>
                             </div>
                             <div class="mx-2 my-2">
-                                <a href="{{route('admin.projects.edit',['project'=>$project->id])}}" class="btn btn-warning ">Modifica</a>
+                                <a href="{{route('admin.projects.edit',$project->slug)}}" class="btn btn-warning ">Modifica</a>
                             </div>
-                            <form  class="my-2" action="{{route('admin.projects.destroy',['project'=>$project->id])}}" method="POST">
+                            <form    class="form_delete_post my-2"  action="{{route('admin.projects.destroy',$project->slug)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger">Elimina</button>
+                                <button type="submit" class="btn btn-danger">Elimina</button>
                             </form>
                         </td>
                     </tr>
@@ -36,6 +36,24 @@
             </tbody>
         </table>
 
+    </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma eliminazione</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Confermi di voler eliminare l'elemento selezionato?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Conferma eliminazione</button>
+            </div>
+            </div>
+        </div>
     </div>
 
 </div>

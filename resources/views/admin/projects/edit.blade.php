@@ -4,7 +4,7 @@
 
         <div class="container">
             <div class="row">
-                <form method="POST" action="{{route('admin.projects.update',['project'=>$project->id])}}">
+                <form method="POST" action="{{route('admin.projects.update',['project'=>$project->slug])}}">
 
                     @csrf
                     @method('PUT')
@@ -50,7 +50,7 @@
                         @endif
                     </div>
 
-                    <button type="submit" class="btn btn-primary my-4">Salva nuovo progetto</button>
+                    <button type="submit" class="btn btn-primary my-4">Modifica progetto</button>
 
             </form>
 
